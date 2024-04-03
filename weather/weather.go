@@ -21,20 +21,30 @@ func init() {
 	}
 }
 
+// MainInfo представляет основные погодные данные.
+type MainInfo struct {
+	Temp     float64 `json:"temp"`
+	Pressure int     `json:"pressure"`
+	Humidity int     `json:"humidity"`
+}
+
+// WeatherCondition представляет информацию о текущем состоянии погоды.
+type WeatherCondition struct {
+	Main        string `json:"main"`
+	Description string `json:"description"`
+}
+
+// WindInfo представляет информацию о ветре.
+type WindInfo struct {
+	Speed float64 `json:"speed"`
+}
+
+// WeatherData представляет данные о погоде, полученные от API.
 type WeatherData struct {
-	Main struct {
-		Temp     float64 `json:"temp"`
-		Pressure int     `json:"pressure"`
-		Humidity int     `json:"humidity"`
-	} `json:"main"`
-	Weather []struct {
-		Main        string `json:"main"`
-		Description string `json:"description"`
-	} `json:"weather"`
-	Wind struct {
-		Speed float64 `json:"speed"`
-	} `json:"wind"`
-	Name string `json:"name"`
+	Main    MainInfo           `json:"main"`
+	Weather []WeatherCondition `json:"weather"`
+	Wind    WindInfo           `json:"wind"`
+	Name    string             `json:"name"`
 }
 
 func FetchWeather(cityName string) (*WeatherData, error) {
